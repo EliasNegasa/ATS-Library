@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 /* eslint-disable no-unused-vars */
 import { Candidate } from '../common/model.js';
 
@@ -31,7 +32,33 @@ import { Candidate } from '../common/model.js';
 const normalizedName = (name) => {
   // ----- Challenge 2.2.1 - Complete the function here ---- //
 
-  return name;
+  // Elias => [E, L, I, A, S] => [E, L, S,] => ELS
+  const nameArray = name.toUpperCase().split('');
+  const normalizedNameArray = [];
+
+  for (let i = 0; i < nameArray.length; i++) {
+    if (isNaN(nameArray[i]) && isLetter(nameArray[i])) {
+      if ((isVowel(nameArray[i]) && i === 0) || !isVowel(nameArray[i])) {
+        if (
+          normalizedNameArray[normalizedNameArray.length - 1] !== nameArray[i]
+        ) {
+          normalizedNameArray.push(nameArray[i]);
+        }
+      }
+    }
+  }
+
+  const normalizedName = normalizedNameArray.join('');
+
+  return normalizedName;
+};
+
+const isVowel = (letter) => {
+  return ['A', 'E', 'I', 'O', 'U'].includes(letter);
+};
+
+const isLetter = (char) => {
+  return /[a-zA-Z]/.test(char);
 };
 
 /**
@@ -46,7 +73,19 @@ const normalizedName = (name) => {
 const areSimilarCandidates = (candidate1, candidate2) => {
   // ----- Challenge 2.2.2 - Complete the function here ---- //
 
+  if (normalizedName(candidate1.name) === normalizedName(candidate2.name)) {
+    if (daysDifference(candidate1.dateOfBirth, candidate2.dateOfBirth) <= 10) {
+      return true;
+    }
+  }
   return false;
+};
+
+const daysDifference = (date1, date2) => {
+  const millisecondsInADay = 24 * 60 * 60 * 1000;
+  const timeDifference = Math.abs(date2 - date1);
+
+  return Math.floor(timeDifference / millisecondsInADay);
 };
 
 /**
@@ -59,7 +98,14 @@ const areSimilarCandidates = (candidate1, candidate2) => {
 const possibleDuplicates = (newCandidate, candidateList) => {
   // ------ Challenge 2.2.3 - Complete the function here ---- //
 
-  return [];
+  const possibleDuplicateCandidates = [];
+
+  for (const candicate of candidateList) {
+    if (areSimilarCandidates(candicate, newCandidate)) {
+      possibleDuplicateCandidates.push(candicate);
+    }
+  }
+  return possibleDuplicateCandidates;
 };
 
 /**
@@ -97,4 +143,10 @@ const duplicateCount = (candidateList) => {
   return 0;
 };
 
-export { normalizedName, areSimilarCandidates, possibleDuplicates, duplicateCount, candidateIndex };
+export {
+  normalizedName,
+  areSimilarCandidates,
+  possibleDuplicates,
+  duplicateCount,
+  candidateIndex,
+};

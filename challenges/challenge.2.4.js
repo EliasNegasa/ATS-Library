@@ -24,8 +24,20 @@ import { Candidate } from '../common/model.js';
  */
 const totalBonuses = (candidate, initialBonus) => {
   // ----- Challenge 2.4.1 - Complete the function here ---- //
+  let bonus = 0;
+  const doubledInitialBonus = initialBonus * 2;
 
-  return 0;
+  // if (candidate.recommendedBy) {
+  //   bonus += initialBonus;
+  // }
+  for (const referer of candidate) {
+    if (referer.recommendedBy) {
+      let reminderAmount = doubledInitialBonus / 2;
+    }
+    // reminderAmount =
+  }
+
+  return bonus;
 };
 
 export { totalBonuses };

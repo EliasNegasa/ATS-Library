@@ -19,7 +19,14 @@ import { Candidate, Job } from '../common/model.js';
  */
 const skillsMatch = (candidateSkill, jobSkill) => {
   // ----- Challenge 2.3.1 - Complete the function here ---- //
+  // candidateSkill = { name: "react", level: 3 };
+  // jobSkill = { name: "REACT", level: 2 };
 
+  if (candidateSkill.name.toUpperCase() === jobSkill.name.toUpperCase()) {
+    if (candidateSkill.level >= jobSkill.level) {
+      return true;
+    }
+  }
   return false;
 };
 
@@ -33,7 +40,15 @@ const skillsMatch = (candidateSkill, jobSkill) => {
  */
 const suitableGender = (candidate, job) => {
   // ----- Challenge 2.3.2 - Complete the function here ---- //
-  return false;
+
+  if (job.requiredGender) {
+    if (job.requiredGender === candidate.gender) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  return true;
 };
 
 /**
@@ -50,8 +65,20 @@ const suitableGender = (candidate, job) => {
  */
 const suitabilityScore = (candidate, job) => {
   // ----- Challenge 2.3.3 - Complete the function here ---- //
-
-  return 0;
+  // let genderScore = 0;
+  // let skillScore = 0;
+  // if (suitableGender(candidate, job)) {
+  //   genderScore = 20;
+  // }
+  // for (const candidateSkill of candidate.skills) {
+  //   for (const jobSkill of job.requiredSkills) {
+  //     if (skillsMatch(candidateSkill, jobSkill)) {
+  //       skillScore++;
+  //     }
+  //   }
+  // }
+  // const score = (genderScore + skillScore / 80) * 100;
+  // return score;
 };
 
 /**

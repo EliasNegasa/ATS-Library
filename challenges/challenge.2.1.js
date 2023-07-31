@@ -20,8 +20,15 @@ import { Job, Candidate, Skill } from '../common/model.js';
  */
 const filterByDate = (jobs, startDate, endDate) => {
   // ----- Challenge 2.1.1 - Complete the function here ---- //
+  const filteredJobs = [];
 
-  return [];
+  for (const job of jobs) {
+    if (job.startDate >= startDate && job.startDate <= endDate) {
+      filteredJobs.push(job);
+    }
+  }
+
+  return filteredJobs;
 };
 
 /**
@@ -33,8 +40,19 @@ const filterByDate = (jobs, startDate, endDate) => {
  */
 const filterByBornAfter = (candidates, date) => {
   // ----- Challenge 2.1.2 - Complete the function here ---- //
-
-  return [];
+  // const filteredCandidates = [];
+  // for (const candidate of candidates) {
+  //   if (candidate.dateOfBirth >= date) {
+  //     filteredCandidates.push(candidate);
+  //   }
+  // }
+  // return filteredCandidates;
+  return candidates.reduce((filteredCandidates, candidate) => {
+    if (candidate.dateOfBirth >= date) {
+      filteredCandidates.push(candidate);
+    }
+    return filteredCandidates;
+  }, []);
 };
 
 /**
@@ -46,6 +64,11 @@ const filterByBornAfter = (candidates, date) => {
  */
 const orderBySkills = (candidateList) => {
   // ----- Challenge 2.1.3 - Complete the function here ---- //
+
+  candidateList.sort(
+    (candidate1, candidate2) =>
+      candidate2.skills.length - candidate1.skills.length
+  );
 
   return candidateList;
 };
@@ -70,8 +93,29 @@ const orderByWeightedSkills = (candidateList) => {
  * @returns a floating point number indicating the ratio
  */
 const genderRatio = (candidateList) => {
-
   // ----- Challenge 2.1.5 - Complete the function here ---- //
+
+  let female = 0;
+  let male = 0;
+  for (const candicate of candidateList) {
+    if (candicate.gender === 'F') {
+      female++;
+    } else {
+      male++;
+    }
+  }
+  const gcd = (female, male) => {
+    if (female % male === 0) {
+      return male;
+    } else {
+      const remainder = female % male;
+      return gcd(male, remainder);
+    }
+  };
+  const commonDivisor = gcd(female, male);
+  const simplifiedFemaleNumber = female / commonDivisor;
+  const simplifiedMaleNumber = male / commonDivisor;
+  return `${simplifiedFemaleNumber}:${simplifiedMaleNumber}`;
 };
 
 /**
@@ -93,9 +137,16 @@ const busiestMonth = (jobs) => {
  * @param {Array<Job>} jobs
  */
 const mostInDemandSkill = (jobs) => {
-
   // ----- Challenge 2.1.7 - Complete the function here ---- //
-
 };
 
-export { filterByDate, filterByBornAfter, orderBySkills, orderByWeightedSkills, genderRatio, busiestMonth, mostInDemandSkill };
+export {
+  filterByDate,
+  filterByBornAfter,
+  orderBySkills,
+  orderByWeightedSkills,
+  genderRatio,
+  busiestMonth,
+  // eslint-disable-next-line comma-dangle
+  mostInDemandSkill,
+};

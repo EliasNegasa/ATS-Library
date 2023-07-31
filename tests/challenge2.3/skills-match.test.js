@@ -8,49 +8,25 @@ const s3 = new Skill('Skill2', 2);
 const s4 = new Skill('skill2', 1);
 
 test('Skills match test', () => {
-  expect(
-    Utils.skillsMatch(s1, s2))
-    .toBe(
-      false
-    );
+  expect(Utils.skillsMatch(s1, s2)).toBe(false);
 });
 
 test('Skills match test', () => {
-  expect(
-    Utils.skillsMatch(s2, s1))
-    .toBe(
-      true
-    );
+  expect(Utils.skillsMatch(s2, s1)).toBe(true);
 });
 
 test('Skills match test', () => {
-  expect(
-    Utils.skillsMatch(s2, s3))
-    .toBe(
-      false
-    );
+  expect(Utils.skillsMatch(s2, s3)).toBe(false);
 });
 
 test('Skills match test', () => {
-  expect(
-    Utils.skillsMatch(s3, s2))
-    .toBe(
-      false
-    );
+  expect(Utils.skillsMatch(s3, s2)).toBe(false);
 });
 
 test('Skills match test', () => {
-  expect(
-    Utils.skillsMatch(s3, s4))
-    .toBe(
-      false
-    );
+  expect(Utils.skillsMatch(s3, s4)).toBe(false);
 });
 
 test('Skills match test', () => {
-  expect(
-    Utils.skillsMatch(s4, s3))
-    .toBe(
-      true
-    );
+  expect(Utils.skillsMatch(s4, s3)).toBe(true);
 });
