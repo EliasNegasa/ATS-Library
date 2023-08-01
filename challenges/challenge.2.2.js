@@ -140,6 +140,31 @@ const candidateIndex = (candidateList) => {
  */
 const duplicateCount = (candidateList) => {
   // ------ Challenge 2.2.5 - Complete the function here ---- //
+
+  const sortedcandidateList = candidateList.sort(compareByName);
+
+  let count = 0;
+
+  for (let i = 0; i < sortedcandidateList.length; i++) {
+    if (
+      areSimilarCandidates(sortedcandidateList[i], sortedcandidateList[i + 1])
+    ) {
+      count++;
+    }
+  }
+
+  return count;
+};
+
+const compareByName = (a, b) => {
+  const name1 = a.name.toLowerCase();
+  const name2 = b.name.toLowerCase();
+
+  if (name1 > name2) {
+    return 1;
+  } else if (name1 < name2) {
+    return -1;
+  }
   return 0;
 };
 

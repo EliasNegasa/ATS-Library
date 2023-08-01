@@ -20,15 +20,18 @@ import { Job, Candidate, Skill } from '../common/model.js';
  */
 const filterByDate = (jobs, startDate, endDate) => {
   // ----- Challenge 2.1.1 - Complete the function here ---- //
-  const filteredJobs = [];
+  // const filteredJobs = [];
 
-  for (const job of jobs) {
-    if (job.startDate >= startDate && job.startDate <= endDate) {
-      filteredJobs.push(job);
-    }
-  }
+  // for (const job of jobs) {
+  //   if (job.startDate >= startDate && job.startDate <= endDate) {
+  //     filteredJobs.push(job);
+  //   }
+  // }
+  return jobs.filter(
+    (job) => job.startDate >= startDate && job.startDate <= endDate
+  );
 
-  return filteredJobs;
+  // return filteredJobs;
 };
 
 /**
@@ -40,13 +43,6 @@ const filterByDate = (jobs, startDate, endDate) => {
  */
 const filterByBornAfter = (candidates, date) => {
   // ----- Challenge 2.1.2 - Complete the function here ---- //
-  // const filteredCandidates = [];
-  // for (const candidate of candidates) {
-  //   if (candidate.dateOfBirth >= date) {
-  //     filteredCandidates.push(candidate);
-  //   }
-  // }
-  // return filteredCandidates;
   return candidates.reduce((filteredCandidates, candidate) => {
     if (candidate.dateOfBirth >= date) {
       filteredCandidates.push(candidate);
@@ -115,7 +111,8 @@ const genderRatio = (candidateList) => {
   const commonDivisor = gcd(female, male);
   const simplifiedFemaleNumber = female / commonDivisor;
   const simplifiedMaleNumber = male / commonDivisor;
-  return `${simplifiedFemaleNumber}:${simplifiedMaleNumber}`;
+  return simplifiedFemaleNumber / simplifiedMaleNumber;
+  // return `${simplifiedFemaleNumber}:${simplifiedMaleNumber}`;
 };
 
 /**

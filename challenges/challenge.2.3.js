@@ -65,20 +65,37 @@ const suitableGender = (candidate, job) => {
  */
 const suitabilityScore = (candidate, job) => {
   // ----- Challenge 2.3.3 - Complete the function here ---- //
-  // let genderScore = 0;
-  // let skillScore = 0;
-  // if (suitableGender(candidate, job)) {
-  //   genderScore = 20;
-  // }
-  // for (const candidateSkill of candidate.skills) {
-  //   for (const jobSkill of job.requiredSkills) {
-  //     if (skillsMatch(candidateSkill, jobSkill)) {
-  //       skillScore++;
-  //     }
-  //   }
-  // }
-  // const score = (genderScore + skillScore / 80) * 100;
-  // return score;
+
+  // const c3 = new Candidate(
+  //   'C',
+  //   null,
+  //   [new Skill('s4', 2), new Skill('s2', 2)],
+  //   'M'
+  // );
+
+  // const j5 = new Job(
+  //   'J5',
+  //   '',
+  //   [new Skill('s1', 0), new Skill('s2', 2), new Skill('s3', 2)],
+  //   'F'
+  // );
+
+  let genderScore = 0;
+  let matchedSkill = 0;
+  const jobSkillCount = job.requiredSkills.length;
+
+  if (suitableGender(candidate, job)) {
+    genderScore = 20;
+  }
+  for (const candidateSkill of candidate.skills) {
+    for (const jobSkill of job.requiredSkills) {
+      if (skillsMatch(candidateSkill, jobSkill)) {
+        matchedSkill++;
+      }
+    }
+  }
+  const score = genderScore + (matchedSkill / jobSkillCount) * 80;
+  return Math.floor(score);
 };
 
 /**
@@ -93,8 +110,17 @@ const suitabilityScore = (candidate, job) => {
  */
 const hottestCandidate = (candidates, jobs) => {
   // ----- Challenge 2.3.4 - Complete the function here ---- //
+  let hotnessCount = 0;
 
-  return 0;
+  for (const candidate of candidates) {
+    for (const job of jobs) {
+      if (suitabilityScore(candidate, job) > 80) {
+        hotnessCount++;
+      }
+    }
+  }
+
+  return hotnessCount;
 };
 
 export { skillsMatch, suitableGender, suitabilityScore, hottestCandidate };

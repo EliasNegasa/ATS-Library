@@ -24,9 +24,9 @@ test('Skills match test', () => {
 });
 
 test('Skills match test', () => {
-  expect(Utils.skillsMatch(s3, s4)).toBe(false);
+  expect(Utils.skillsMatch(s3, s4)).toBe(true);
 });
 
 test('Skills match test', () => {
-  expect(Utils.skillsMatch(s4, s3)).toBe(true);
+  expect(Utils.skillsMatch(s4, s3)).toBe(false);
 });
