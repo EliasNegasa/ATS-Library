@@ -19,8 +19,6 @@ import { Candidate, Job } from '../common/model.js';
  */
 const skillsMatch = (candidateSkill, jobSkill) => {
   // ----- Challenge 2.3.1 - Complete the function here ---- //
-  // candidateSkill = { name: "react", level: 3 };
-  // jobSkill = { name: "REACT", level: 2 };
 
   if (candidateSkill.name.toUpperCase() === jobSkill.name.toUpperCase()) {
     if (candidateSkill.level >= jobSkill.level) {
@@ -66,20 +64,6 @@ const suitableGender = (candidate, job) => {
 const suitabilityScore = (candidate, job) => {
   // ----- Challenge 2.3.3 - Complete the function here ---- //
 
-  // const c3 = new Candidate(
-  //   'C',
-  //   null,
-  //   [new Skill('s4', 2), new Skill('s2', 2)],
-  //   'M'
-  // );
-
-  // const j5 = new Job(
-  //   'J5',
-  //   '',
-  //   [new Skill('s1', 0), new Skill('s2', 2), new Skill('s3', 2)],
-  //   'F'
-  // );
-
   let genderScore = 0;
   let matchedSkill = 0;
   const jobSkillCount = job.requiredSkills.length;
@@ -95,7 +79,7 @@ const suitabilityScore = (candidate, job) => {
     }
   }
   const score = genderScore + (matchedSkill / jobSkillCount) * 80;
-  return Math.floor(score);
+  return Math.round(score);
 };
 
 /**

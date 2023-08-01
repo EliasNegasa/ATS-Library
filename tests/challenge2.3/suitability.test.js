@@ -57,10 +57,10 @@ const c4 = new Candidate(
   null,
   [
     new Skill('s1', 2),
-    new Skill('S2', 2),
+    new Skill('s2', 2),
     new Skill('s3', 2),
     new Skill('s4', 2),
-    new Skill('S5', 3),
+    new Skill('s5', 3),
   ],
   'F'
 );
@@ -106,22 +106,22 @@ test('Suitability test', () => {
 });
 
 test('Suitability test', () => {
-  expect(Utils.suitabilityScore(c3, j1)).toBe(20);
+  expect(Utils.suitabilityScore(c3, j1)).toBe(47);
 });
 test('Suitability test', () => {
-  expect(Utils.suitabilityScore(c3, j2)).toBe(0);
-});
-
-test('Suitability test', () => {
-  expect(Utils.suitabilityScore(c3, j3)).toBe(20);
+  expect(Utils.suitabilityScore(c3, j2)).toBe(27);
 });
 
 test('Suitability test', () => {
-  expect(Utils.suitabilityScore(c3, j4)).toBe(32);
+  expect(Utils.suitabilityScore(c3, j3)).toBe(47);
 });
 
 test('Suitability test', () => {
-  expect(Utils.suitabilityScore(c3, j5)).toBe(46);
+  expect(Utils.suitabilityScore(c3, j4)).toBe(52);
+});
+
+test('Suitability test', () => {
+  expect(Utils.suitabilityScore(c3, j5)).toBe(27);
 });
 
 test('Suitability test', () => {
