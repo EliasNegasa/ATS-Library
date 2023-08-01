@@ -94,7 +94,9 @@ const suitabilityScore = (candidate, job) => {
  */
 const hottestCandidate = (candidates, jobs) => {
   // ----- Challenge 2.3.4 - Complete the function here ---- //
+
   let hotnessCount = 0;
+  const hotness = [];
 
   for (const candidate of candidates) {
     for (const job of jobs) {
@@ -102,9 +104,13 @@ const hottestCandidate = (candidates, jobs) => {
         hotnessCount++;
       }
     }
+    hotness.push(hotnessCount);
+    hotnessCount = 0;
   }
 
-  return hotnessCount;
+  const hotnessScore = Math.max(...hotness);
+
+  return hotnessScore;
 };
 
 export { skillsMatch, suitableGender, suitabilityScore, hottestCandidate };
