@@ -100,9 +100,9 @@ const possibleDuplicates = (newCandidate, candidateList) => {
 
   const possibleDuplicateCandidates = [];
 
-  for (const candicate of candidateList) {
-    if (areSimilarCandidates(candicate, newCandidate)) {
-      possibleDuplicateCandidates.push(candicate);
+  for (const candidate of candidateList) {
+    if (areSimilarCandidates(candidate, newCandidate)) {
+      possibleDuplicateCandidates.push(candidate);
     }
   }
   return possibleDuplicateCandidates;
@@ -125,7 +125,18 @@ const possibleDuplicates = (newCandidate, candidateList) => {
  */
 const candidateIndex = (candidateList) => {
   // ------ Challenge 2.2.4 - Complete the function here ---- //
-  return 0;
+  const index = {};
+
+  for (const candidate of candidateList) {
+    const normalizeCandidate = normalizedName(candidate.name);
+
+    if (!index[normalizeCandidate]) {
+      index[normalizeCandidate] = [];
+    }
+    index[normalizeCandidate].push(candidate);
+  }
+
+  return index;
 };
 
 /**

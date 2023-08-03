@@ -20,18 +20,9 @@ import { Job, Candidate, Skill } from '../common/model.js';
  */
 const filterByDate = (jobs, startDate, endDate) => {
   // ----- Challenge 2.1.1 - Complete the function here ---- //
-  // const filteredJobs = [];
-
-  // for (const job of jobs) {
-  //   if (job.startDate >= startDate && job.startDate <= endDate) {
-  //     filteredJobs.push(job);
-  //   }
-  // }
   return jobs.filter(
     (job) => job.startDate >= startDate && job.startDate <= endDate
   );
-
-  // return filteredJobs;
 };
 
 /**
@@ -93,26 +84,16 @@ const genderRatio = (candidateList) => {
 
   let female = 0;
   let male = 0;
-  for (const candicate of candidateList) {
-    if (candicate.gender === 'F') {
-      female++;
-    } else {
+
+  for (const candidate of candidateList) {
+    if (candidate.gender === 'M') {
       male++;
+    } else {
+      female++;
     }
   }
-  const gcd = (female, male) => {
-    if (female % male === 0) {
-      return male;
-    } else {
-      const remainder = female % male;
-      return gcd(male, remainder);
-    }
-  };
-  const commonDivisor = gcd(female, male);
-  const simplifiedFemaleNumber = female / commonDivisor;
-  const simplifiedMaleNumber = male / commonDivisor;
-  return simplifiedFemaleNumber / simplifiedMaleNumber;
-  // return `${simplifiedFemaleNumber}:${simplifiedMaleNumber}`;
+
+  return male === 0 ? 0 : female / male;
 };
 
 /**
@@ -123,8 +104,21 @@ const genderRatio = (candidateList) => {
  */
 const busiestMonth = (jobs) => {
   // ----- Challenge 2.1.6 - Complete the function here ---- //
+  const monthsCount = Array.from({ length: 12 }, () => 0);
 
-  return 0;
+  for (const job of jobs) {
+    const monthIndex = job.startDate.getMonth();
+    monthsCount[monthIndex]++;
+  }
+
+  const maxMonth = Math.max(...monthsCount);
+
+  const busyMonth =
+    monthsCount.indexOf(maxMonth) === monthsCount.lastIndexOf(maxMonth)
+      ? monthsCount.indexOf(maxMonth)
+      : -1;
+
+  return busyMonth;
 };
 
 /**
@@ -135,6 +129,26 @@ const busiestMonth = (jobs) => {
  */
 const mostInDemandSkill = (jobs) => {
   // ----- Challenge 2.1.7 - Complete the function here ---- //
+
+  const skillsCount = {};
+
+  for (const job of jobs) {
+    for (const skill of job.requiredSkills) {
+      const { name } = skill;
+      skillsCount[name] = (skillsCount[name] || 0) + 1;
+    }
+  }
+
+  const skills = Object.keys(skillsCount);
+
+  const mostInDemand = skills.reduce((maxSkill, skill) => {
+    if (skillsCount[skill] > skillsCount[maxSkill]) {
+      return skill;
+    }
+    return maxSkill;
+  }, skills[0]);
+
+  return mostInDemand || null;
 };
 
 export {
