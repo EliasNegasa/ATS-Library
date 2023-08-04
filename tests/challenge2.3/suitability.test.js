@@ -35,25 +35,25 @@ const j5 = new Job(
 );
 
 const c1 = new Candidate(
-  'C',
+  'C1',
   null,
   [new Skill('s3', 0), new Skill('s2', 2), new Skill('s1', 2)],
   'M'
 );
 const c2 = new Candidate(
-  'C',
+  'C2',
   null,
   [new Skill('s3', 2), new Skill('s2', 2), new Skill('s1', 2)],
   'M'
 );
 const c3 = new Candidate(
-  'C',
+  'C3',
   null,
   [new Skill('s4', 2), new Skill('s2', 2)],
   'M'
 );
 const c4 = new Candidate(
-  'C',
+  'C4',
   null,
   [
     new Skill('s1', 2),

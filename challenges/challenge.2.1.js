@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 /* eslint-disable no-unused-vars */
 import { Job, Candidate, Skill } from '../common/model.js';
 
@@ -71,7 +72,19 @@ const orderBySkills = (candidateList) => {
 const orderByWeightedSkills = (candidateList) => {
   // ----- Challenge 2.1.4 - Complete the function here ---- //
 
-  return candidateList;
+  const sortedCandidate = candidateList.sort(
+    (candidate1, candidate2) =>
+      candidate2.skills.reduce(
+        (accumulator, skill) => accumulator + skill.level,
+        0
+      ) -
+      candidate1.skills.reduce(
+        (accumulator, skill) => accumulator + skill.level,
+        0
+      )
+  );
+
+  return sortedCandidate;
 };
 
 /**
@@ -113,10 +126,7 @@ const busiestMonth = (jobs) => {
 
   const maxMonth = Math.max(...monthsCount);
 
-  const busyMonth =
-    monthsCount.indexOf(maxMonth) === monthsCount.lastIndexOf(maxMonth)
-      ? monthsCount.indexOf(maxMonth)
-      : -1;
+  const busyMonth = monthsCount.indexOf(maxMonth);
 
   return busyMonth;
 };
@@ -139,16 +149,20 @@ const mostInDemandSkill = (jobs) => {
     }
   }
 
-  const skills = Object.keys(skillsCount);
+  const skills = Object.keys(skillsCount); // s1, s2, s3, s4
 
-  const mostInDemand = skills.reduce((maxSkill, skill) => {
+  const mostInDemandCount = skills.reduce((maxSkill, skill) => {
     if (skillsCount[skill] > skillsCount[maxSkill]) {
       return skill;
     }
     return maxSkill;
   }, skills[0]);
 
-  return mostInDemand || null;
+  const mostInDemand = skills.filter(
+    (skill) => skillsCount[skill] === skillsCount[mostInDemandCount]
+  );
+
+  return mostInDemand.sort();
 };
 
 export {

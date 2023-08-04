@@ -33,28 +33,27 @@ const normalizedName = (name) => {
   // ----- Challenge 2.2.1 - Complete the function here ---- //
 
   // Elias => [E, L, I, A, S] => [E, L, S,] => ELS
-  const nameArray = name.toUpperCase().split('');
-  const normalizedNameArray = [];
+  const nameChars = name.toUpperCase().split('');
 
-  for (let i = 0; i < nameArray.length; i++) {
-    if (isNaN(nameArray[i]) && isLetter(nameArray[i])) {
-      if ((isVowel(nameArray[i]) && i === 0) || !isVowel(nameArray[i])) {
-        if (
-          normalizedNameArray[normalizedNameArray.length - 1] !== nameArray[i]
-        ) {
-          normalizedNameArray.push(nameArray[i]);
+  const vowels = new Set(['A', 'E', 'I', 'O', 'U']);
+
+  const normalizedChars = [];
+
+  for (let i = 0; i < nameChars.length; i++) {
+    const currentChar = nameChars[i];
+
+    if (isLetter(currentChar)) {
+      if ((vowels.has(currentChar) && i === 0) || !vowels.has(currentChar)) {
+        if (normalizedChars[normalizedChars.length - 1] !== currentChar) {
+          normalizedChars.push(currentChar);
         }
       }
     }
   }
 
-  const normalizedName = normalizedNameArray.join('');
+  const normalizedName = normalizedChars.join('');
 
   return normalizedName;
-};
-
-const isVowel = (letter) => {
-  return ['A', 'E', 'I', 'O', 'U'].includes(letter);
 };
 
 const isLetter = (char) => {
@@ -73,11 +72,19 @@ const isLetter = (char) => {
 const areSimilarCandidates = (candidate1, candidate2) => {
   // ----- Challenge 2.2.2 - Complete the function here ---- //
 
-  if (normalizedName(candidate1.name) === normalizedName(candidate2.name)) {
-    if (daysDifference(candidate1.dateOfBirth, candidate2.dateOfBirth) <= 10) {
+  const name1 = normalizedName(candidate1.name);
+  const name2 = normalizedName(candidate2.name);
+
+  if (name1 === name2) {
+    const daysDiff = daysDifference(
+      candidate1.dateOfBirth,
+      candidate2.dateOfBirth
+    );
+    if (daysDiff <= 10) {
       return true;
     }
   }
+
   return false;
 };
 
@@ -98,21 +105,21 @@ const daysDifference = (date1, date2) => {
 const possibleDuplicates = (newCandidate, candidateList) => {
   // ------ Challenge 2.2.3 - Complete the function here ---- //
 
-  const possibleDuplicateCandidates = [];
+  const duplicateCandidates = [];
 
   for (const candidate of candidateList) {
     if (areSimilarCandidates(candidate, newCandidate)) {
-      possibleDuplicateCandidates.push(candidate);
+      duplicateCandidates.push(candidate);
     }
   }
-  return possibleDuplicateCandidates;
+  return duplicateCandidates;
 };
 
 /**
  * We want to transform the given candidate list into a dictionary index
  * that enable us to lookup a normalized name and get all the corresponding candidates.
  * A sample output may be:
- * { 'ABRHM' -> [ Candidate {name: 'Abraham', ...},
+ * { 'ABRHM' -> [Candidate {name: 'Abraham', ...},
  *                Candidate {name: 'Abreham', ...},
  *              ],
  *   'BRHN'  -> [ Candidate {name: 'Berhane', ...},
@@ -130,10 +137,9 @@ const candidateIndex = (candidateList) => {
   for (const candidate of candidateList) {
     const normalizeCandidate = normalizedName(candidate.name);
 
-    if (!index[normalizeCandidate]) {
-      index[normalizeCandidate] = [];
-    }
-    index[normalizeCandidate].push(candidate);
+    (index[normalizeCandidate] || (index[normalizeCandidate] = [])).push(
+      candidate
+    );
   }
 
   return index;
@@ -156,7 +162,7 @@ const duplicateCount = (candidateList) => {
 
   let count = 0;
 
-  for (let i = 0; i < sortedcandidateList.length; i++) {
+  for (let i = 0; i < sortedcandidateList.length - 1; i++) {
     if (
       areSimilarCandidates(sortedcandidateList[i], sortedcandidateList[i + 1])
     ) {

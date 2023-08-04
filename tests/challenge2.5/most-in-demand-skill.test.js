@@ -41,18 +41,30 @@ const j6 = new Job(
 
 describe('Most indemand skills', () => {
   test('Most indemand skill 1', () => {
-    expect(Utils.mostInDemandSkill([j1, j2])).toBe('s1');
+    expect(Utils.mostInDemandSkill([j1, j2])).toEqual(['s1']);
   });
 
   test('Most indemand skill 2', () => {
-    expect(Utils.mostInDemandSkill([j2, j3, j4, j5])).toBe('s22');
+    expect(Utils.mostInDemandSkill([j2, j3, j4, j5])).toEqual([
+      's1',
+      's3',
+      's4',
+    ]);
+  });
+
+  test('Most indemand skill 2', () => {
+    expect(Utils.mostInDemandSkill([j4, j3, j2, j5])).toEqual([
+      's1',
+      's3',
+      's4',
+    ]);
   });
 
   test('Most indemand skill 3', () => {
-    expect(Utils.mostInDemandSkill([j2, j4, j5])).toBe('s4');
+    expect(Utils.mostInDemandSkill([j2, j4, j5])).toEqual(['s4']);
   });
 
   test('Most indemand skill 4', () => {
-    expect(Utils.mostInDemandSkill([j2, j4, j6])).toBe('s5');
+    expect(Utils.mostInDemandSkill([j2, j4, j6])).toEqual(['s5']);
   });
 });

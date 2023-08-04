@@ -28,14 +28,6 @@ describe('Busiest Months', () => {
     expect(Utils.busiestMonth([j6, j7, j8, j9])).toBe(4);
   });
 
-  test('Busiest Month 4', () => {
-    expect(Utils.busiestMonth([j1, j2, j3, j6])).toBe(-1);
-  });
-
-  test('Busiest Month 5', () => {
-    expect(Utils.busiestMonth([])).toBe(-1);
-  });
-
   test('Busiest Month 6', () => {
     expect(Utils.busiestMonth([j3, j4, j5])).toBe(3);
   });

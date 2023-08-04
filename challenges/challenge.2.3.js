@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 // eslint-disable-next-line no-unused-vars
 import { Candidate, Job } from '../common/model.js';
 
@@ -20,12 +21,13 @@ import { Candidate, Job } from '../common/model.js';
 const skillsMatch = (candidateSkill, jobSkill) => {
   // ----- Challenge 2.3.1 - Complete the function here ---- //
 
-  if (candidateSkill.name.toUpperCase() === jobSkill.name.toUpperCase()) {
-    if (candidateSkill.level >= jobSkill.level) {
-      return true;
-    }
-  }
-  return false;
+  const candidateSkillName = candidateSkill.name.toUpperCase();
+  const jobSkillName = jobSkill.name.toUpperCase();
+
+  return (
+    candidateSkillName === jobSkillName &&
+    candidateSkill.level >= jobSkill.level
+  );
 };
 
 /**
@@ -39,14 +41,7 @@ const skillsMatch = (candidateSkill, jobSkill) => {
 const suitableGender = (candidate, job) => {
   // ----- Challenge 2.3.2 - Complete the function here ---- //
 
-  if (job.requiredGender) {
-    if (job.requiredGender === candidate.gender) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  return true;
+  return job.requiredGender === candidate.gender || !job.requiredGender;
 };
 
 /**
@@ -61,24 +56,36 @@ const suitableGender = (candidate, job) => {
  * @param {String} name
  * @returns String
  */
+
 const suitabilityScore = (candidate, job) => {
-  // ----- Challenge 2.3.3 - Complete the function here ---- //
+  const genderScore = suitableGender(candidate, job) ? 20 : 0;
 
-  let genderScore = 0;
+  const jobSkillsMap = new Map();
+
+  job.requiredSkills.forEach((skill) => {
+    const { name, level } = skill;
+
+    jobSkillsMap.set(skill.name, {
+      name,
+      level,
+    });
+  });
+
   let matchedSkill = 0;
-  const jobSkillCount = job.requiredSkills.length;
 
-  if (suitableGender(candidate, job)) {
-    genderScore = 20;
-  }
   for (const candidateSkill of candidate.skills) {
-    for (const jobSkill of job.requiredSkills) {
-      if (skillsMatch(candidateSkill, jobSkill)) {
+    const skillName = candidateSkill.name.toLowerCase();
+
+    if (jobSkillsMap.has(skillName)) {
+      if (skillsMatch(candidateSkill, jobSkillsMap.get(skillName))) {
         matchedSkill++;
       }
     }
   }
+
+  const jobSkillCount = job.requiredSkills.length;
   const score = genderScore + (matchedSkill / jobSkillCount) * 80;
+
   return Math.round(score);
 };
 
@@ -93,20 +100,14 @@ const suitabilityScore = (candidate, job) => {
  * @returns number
  */
 const hottestCandidate = (candidates, jobs) => {
-  // ----- Challenge 2.3.4 - Complete the function here ---- //
+  const candidateScores = candidates.map((candidate) => {
+    const scores = jobs.map((job) => suitabilityScore(candidate, job));
+    return scores;
+  });
 
-  let hotnessCount = 0;
-  const hotness = [];
-
-  for (const candidate of candidates) {
-    for (const job of jobs) {
-      if (suitabilityScore(candidate, job) > 80) {
-        hotnessCount++;
-      }
-    }
-    hotness.push(hotnessCount);
-    hotnessCount = 0;
-  }
+  const hotness = candidateScores.map(
+    (scores) => scores.filter((score) => score > 80).length
+  );
 
   const hotnessScore = Math.max(...hotness);
 
