@@ -9,34 +9,34 @@ const c1 = new Candidate(
   [new Skill('s3', 0), new Skill('s2', 2), new Skill('s1', 2)],
   'M'
 );
-// 4
+// 40
 const c2 = new Candidate(
   'C2',
   null,
   [new Skill('s3', 2), new Skill('s2', 2), new Skill('s1', 2)],
   'M'
 );
-// 6
+// 60
 const c3 = new Candidate(
   'C3',
   null,
   [new Skill('s4', 2), new Skill('s2', 2)],
   'M'
 );
-// 4
+// 40
 const c4 = new Candidate(
   'C4',
   null,
   [
     new Skill('s1', 2),
     new Skill('s2', 2),
-    new Skill('s3', 2),
+    new Skill('s3', 1),
     new Skill('s4', 2),
-    new Skill('s5', 3),
+    new Skill('s5', 1),
   ],
   'F'
 );
-// 11
+// 90
 
 describe('Order by Weight', () => {
   test('Order by weight 1', () => {

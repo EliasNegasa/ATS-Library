@@ -35,12 +35,7 @@ const filterByDate = (jobs, startDate, endDate) => {
  */
 const filterByBornAfter = (candidates, date) => {
   // ----- Challenge 2.1.2 - Complete the function here ---- //
-  return candidates.reduce((filteredCandidates, candidate) => {
-    if (candidate.dateOfBirth >= date) {
-      filteredCandidates.push(candidate);
-    }
-    return filteredCandidates;
-  }, []);
+  return candidates.filter((candidate) => candidate.dateOfBirth >= date);
 };
 
 /**
@@ -75,16 +70,20 @@ const orderByWeightedSkills = (candidateList) => {
   const sortedCandidate = candidateList.sort(
     (candidate1, candidate2) =>
       candidate2.skills.reduce(
-        (accumulator, skill) => accumulator + skill.level,
+        (skillSum, skill) => skillSum + skill.level * weigh(skill.level),
         0
       ) -
       candidate1.skills.reduce(
-        (accumulator, skill) => accumulator + skill.level,
+        (skillSum, skill) => skillSum + skill.level * weigh(skill.level),
         0
       )
   );
 
   return sortedCandidate;
+};
+
+const weigh = (level) => {
+  return level === 2 ? 10 : level === 1 ? 5 : 1;
 };
 
 /**

@@ -37,21 +37,21 @@ const normalizedName = (name) => {
 
   const vowels = new Set(['A', 'E', 'I', 'O', 'U']);
 
-  const normalizedChars = [];
+  const normalized = [];
 
   for (let i = 0; i < nameChars.length; i++) {
     const currentChar = nameChars[i];
 
     if (isLetter(currentChar)) {
       if ((vowels.has(currentChar) && i === 0) || !vowels.has(currentChar)) {
-        if (normalizedChars[normalizedChars.length - 1] !== currentChar) {
-          normalizedChars.push(currentChar);
+        if (normalized[normalized.length - 1] !== currentChar) {
+          normalized.push(currentChar);
         }
       }
     }
   }
 
-  const normalizedName = normalizedChars.join('');
+  const normalizedName = normalized.join('');
 
   return normalizedName;
 };
@@ -177,12 +177,7 @@ const compareByName = (a, b) => {
   const name1 = a.name.toLowerCase();
   const name2 = b.name.toLowerCase();
 
-  if (name1 > name2) {
-    return 1;
-  } else if (name1 < name2) {
-    return -1;
-  }
-  return 0;
+  return name1 > name2 ? 1 : name1 < name2 ? -1 : 0;
 };
 
 export {
