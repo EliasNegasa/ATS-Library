@@ -39,11 +39,12 @@ const normalizedName = (name) => {
 
   const normalized = [];
 
-  for (let i = 0; i < nameChars.length; i++) {
-    const currentChar = nameChars[i];
-
+  for (const currentChar of nameChars) {
     if (isLetter(currentChar)) {
-      if ((vowels.has(currentChar) && i === 0) || !vowels.has(currentChar)) {
+      if (
+        (vowels.has(currentChar) && normalized.length === 0) ||
+        !vowels.has(currentChar)
+      ) {
         if (normalized[normalized.length - 1] !== currentChar) {
           normalized.push(currentChar);
         }
