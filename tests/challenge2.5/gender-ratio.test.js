@@ -18,7 +18,7 @@ describe('Gender Ratios', () => {
   });
 
   test('Gender Ratio 3', () => {
-    expect(Utils.genderRatio([c1, c3, c4])).toBe(0);
+    expect(Utils.genderRatio([c1, c3, c4])).toBe(3);
   });
 
   test('Gender Ratio 4', () => {

@@ -105,7 +105,7 @@ const genderRatio = (candidateList) => {
     }
   }
 
-  return male === 0 ? 0 : female / male;
+  return male === 0 ? female : female / male;
 };
 
 /**
