@@ -70,11 +70,11 @@ const orderByWeightedSkills = (candidateList) => {
   const sortedCandidate = candidateList.sort(
     (candidate1, candidate2) =>
       candidate2.skills.reduce(
-        (skillSum, skill) => skillSum + skill.level * weigh(skill.level),
+        (skillSum, skill) => skillSum + weigh(skill.level),
         0
       ) -
       candidate1.skills.reduce(
-        (skillSum, skill) => skillSum + skill.level * weigh(skill.level),
+        (skillSum, skill) => skillSum + weigh(skill.level),
         0
       )
   );
