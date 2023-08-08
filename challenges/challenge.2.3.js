@@ -62,10 +62,10 @@ const suitabilityScore = (candidate, job) => {
 
   const jobSkillsMap = new Map();
 
-  job.requiredSkills.forEach((skill) => {
+  job.requiredSkills.map((skill) => {
     const { name, level } = skill;
 
-    jobSkillsMap.set(skill.name, {
+    return jobSkillsMap.set(name, {
       name,
       level,
     });
