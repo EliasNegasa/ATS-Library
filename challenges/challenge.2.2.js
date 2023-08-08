@@ -106,14 +106,9 @@ const daysDifference = (date1, date2) => {
 const possibleDuplicates = (newCandidate, candidateList) => {
   // ------ Challenge 2.2.3 - Complete the function here ---- //
 
-  const duplicateCandidates = [];
-
-  for (const candidate of candidateList) {
-    if (areSimilarCandidates(candidate, newCandidate)) {
-      duplicateCandidates.push(candidate);
-    }
-  }
-  return duplicateCandidates;
+  return candidateList.filter((candidate) =>
+    areSimilarCandidates(candidate, newCandidate)
+  );
 };
 
 /**
