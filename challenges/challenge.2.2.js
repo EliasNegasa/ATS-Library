@@ -159,7 +159,7 @@ const candidateIndex = (candidateList) => {
 const duplicateCount = (candidateList) => {
   // ------ Challenge 2.2.5 - Complete the function here ---- //
 
-  const sortedcandidateList = candidateList.sort(compareByName);
+  const sortedcandidateList = candidateList.sort(compareByNormalizedName);
 
   let count = 0;
 
@@ -174,9 +174,9 @@ const duplicateCount = (candidateList) => {
   return count;
 };
 
-const compareByName = (a, b) => {
-  const name1 = a.name.toLowerCase();
-  const name2 = b.name.toLowerCase();
+const compareByNormalizedName = (a, b) => {
+  const name1 = normalizedName(a.name);
+  const name2 = normalizedName(b.name);
 
   return name1 > name2 ? 1 : name1 < name2 ? -1 : 0;
 };
